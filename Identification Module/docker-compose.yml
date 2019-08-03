@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  identification:
+    image: mf2c/identification:latest
+    container_name: identification
+    volumes:
+     - mydata:/data
+    ports:
+     - 46060:46060
+volumes:
+  mydata: {}
