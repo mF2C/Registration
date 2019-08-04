@@ -11,7 +11,6 @@ The following list of packages are necessary to correctly execute all the functi
  - [php7.0](https://packages.ubuntu.com/xenial/php7.0)
  - [php7.0-mbstring](https://packages.ubuntu.com/xenial/php7.0-mbstring)
  - [libapache2-mod-php](https://packages.ubuntu.com/xenial/libapache2-mod-php)
- - [php-mysqli](https://packages.ubuntu.com/xenial/php-mysqli)
  - [php7.0-zip](https://packages.ubuntu.com/xenial/php7.0-zip)
  - [curl](https://packages.ubuntu.com/xenial/curl)
  - [php-curl](https://packages.ubuntu.com/xenial/php-curl)
@@ -23,7 +22,7 @@ sudo apt-get upgrade
 ```
 Then, 
 ```
-sudo apt-get install apache2 php7.0 php7.0-mbstring libapache2-mod-php php-mysqli php7.0-zip curl php-curl -y
+sudo apt-get install apache2 php7.0 php7.0-mbstring libapache2-mod-php php7.0-zip curl php-curl -y
 ```
 
 ## Deployment
