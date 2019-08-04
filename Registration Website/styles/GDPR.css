@@ -1,0 +1,73 @@
+@font-face
+{
+   font-family: Nexa_Bold; 
+   src: url(../fonts/nexa_bold.otf);
+} 
+
+@font-face
+{
+   font-family: Nexa_Light; 
+   src: url(../fonts/nexa_light.otf);
+}
+
+body
+{
+	padding: 10px;
+}
+
+h3
+{
+	font-family: Nexa_Bold;
+	font-size: 20pt;
+}
+
+h4
+{
+	font-family: Nexa_Bold;
+	font-size: 16pt;
+}
+
+p
+{
+	font-family: Nexa_Light;
+	font-size: 14pt;
+	text-align: justify;
+}
+
+li
+{
+	font-family: Nexa_Light;
+	font-size: 14pt;
+}
+
+table
+{
+	font-family: Nexa_Light;
+	font-size: 14pt;
+	text-align: left;
+	border-spacing: 0px;
+    border-collapse: separate;
+	width: 80%;
+}
+
+td
+{
+	padding: 4px;
+}
+
+td.tblHead
+{
+	background: #00001a;
+	color: whitesmoke;
+}
+
+td.tblRow
+{
+	background: #99ccff;
+}
+
+@media (max-width: 980px)
+{
+	table {width: 95%;}
+	body{padding: 5px}
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>mF2C - Driving Through the Edge</title>
+	<script src="scripts/functions.js"></script>
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<link href="styles/sans.css" rel="stylesheet" type="text/css" />
+	<link href="styles/registration.css" rel="stylesheet" type="text/css" media="all"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="icon" type="image/png" href="images/favicons/favicon-72x72.png" sizes="72x72">
+	<link rel="icon" type="image/png" href="images/favicons/favicon-64x64.png" sizes="64x64">
+	<link rel="icon" type="image/png" href="images/favicons/favicon-48x48.png" sizes="48x48">
+	<link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="images/favicons/favicon-114x114.png" sizes="114x114">
+	<meta name="keywords" content="mF2C, mF2C Registration, mF2C Project, mF2C - Driving Through the Edge, F2C" />
+</head>
+<body>
+	<div class="content">
+		<h1>Register Now!</h1>
+		<h2>Towards an Open, Secure, Decentralized and Coordinated Fog-to-Cloud Management Ecosystem</h2>
+		<h3>Follow us in our Social Networks</h3>
+		<div class="social-network">
+			<a class="tw" href="https://twitter.com/mF2C_project" target="_blank"> <span class="anc-tw"> </span> Twitter</a>
+			<a class="in" href="https://www.linkedin.com/in/mf2c-project-22b4ba139/" target="_blank"> <span class="anc-in"> </span> LinkedIn</a>
+			<a class="rg" href="https://www.researchgate.net/project/H2020-mF2C" target="_blank"> <span class="anc-rg"> </span> ReseGate</a>
+		</div>
+		<span class="line"> </span>
+		<h4>Already registered? <a class="link" href="main.html">Click here</a> to go to the mF2C login page</h4>
+		<h6 id="userError" style="visibility: hidden;"></h6>
+		<input type="text" class="user" id="user" placeholder="Select a username" onBlur="validateUser(this.value)" />
+		<h6 id="emailError" style="visibility: hidden;"></h6>
+		<input type="text" class="email" id="email" placeholder="Enter your email address" onBlur="validateEmail(this.value)" />
+		<h6 id="passwordError" style="visibility: hidden;"></h6>
+		<input type="password" class="pass" id="pass" placeholder="Password" onBlur="validatePassword(this.value)" />
+		<h6 id="passwordsError" style="visibility: hidden;"></h6>
+		<input type="password" class="pass2" id="pass2" placeholder="Repeat your password" onBlur="validatePasswords(pass.value, this.value)" />
+		<h6 id="GDPRError" style="visibility: hidden;"></h6>
+		<p id="GDPRAgreement">GDPR Agreement <font color="yellow">*</font></p>
+		<p id="GDPRText">
+			<input type="checkbox" id="GDPR" name="GDPR">
+			<label for="GDPR">I consent to having this website store my submitted information so they can respond to my inquiry.
+			Read more <a class="link" target="_blank" href="GDPR.html">here</a></label>
+		</p>
+		<a class="register" onClick="register()">Sign up<span class="arrow"> </span></a>
+	</div>
+	<footer class="footer-distributed">
+		<img src="images/logomF2C.png"  alt="mF2C Project" width="60px"> 
+		<img src="images/logoEUH2020.png" alt="European Union's Horizon 2020" width="100px">
+		<h5>This project has received funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No 730929. The content of this site reflects only the mF2C Consortium view and not the official opinion of the European Commission. Responsibility for the use of the information therein lies entirely with the authors.</h5>
+	</footer>
+</body>
+</html>
