@@ -17,9 +17,9 @@ Alternatively, it is offered the posibility of obtaining both, the IDKey and the
 
 ## Project content
 The following links redirect to each of the three components previously described. More detailed information about the usage, inputs and outputs can be found in each of the links:
- - **[Registration Website](https://github.com/mF2C/Registration-Identification/blob/master/Registration%20Website/README.md)**.
+ - **[Registration Website](https://github.com/mF2C/Registration-Identification/tree/master/Registration%20Website)**.
  Dashboard from where users will create their user accounts and download the docker-compose file that will deploy the agent in their devices. 
- - **[Support Webservice](https://github.com/mF2C/Registration-Identification/blob/master/Support%20Webservice/README.md)**.
+ - **[Support Webservice](https://github.com/mF2C/Registration-Identification/tree/master/Support%20Webservice)**.
  Web service responsible for assigning unique identifiers to both users and devices.
- - **[Identification Module](https://github.com/mF2C/Registration-Identification/blob/master/Identification%20Module/README.md)**. 
+ - **[Identification Module](https://github.com/mF2C/Registration-Identification/tree/master/Identification%20Module)**. 
 Module responsible for obtaining and sharing the user and the device IDs with other modules within the agent. 
