@@ -6,42 +6,6 @@
 	$app = new \Slim\App;
 
 	//REGISTER NEW DEVICE
-	//Input: CIMIUsrID
-	//Output: CIMIUsrID, deviceID and IDKey (json)
-	$app->get('/ResourceManagement/Identification/RegisterDevice/{CIMIUsrID}', function (Request $request, Response $response, array $args)
-	{
-		include 'scripts/functions.php';
-		$CIMIUsrID = $request->getAttribute('CIMIUsrID');
-		$validFormat = Functions::validateCIMIUsrIDFormat($CIMIUsrID);
-		//validate input length
-		if (!$validFormat)
-			echo '{"status": "412", "message": "Invalid input length"}';
-		else
-		{
-			//validate if the user exists in the system
-			$validUser = Functions::validateCIMIUsrID($CIMIUsrID);
-			if (!$validUser)
-				echo '{"status": "401", "message": "The provided user does not exist in the system"}';
-			else
-			{
-				//get user email
-				$usrEmail = Functions::getUsrEmail($CIMIUsrID);
-				if ($usrEmail == "404")
-					echo '{"status": "404", "message": "Unable to obtain the user email"}';
-				else
-				{
-					//Calculate both, IDKey and deviceID
-					$IDKey = Functions::generateHash($usrEmail);
-					$IDKey = trim(strtolower($IDKey));
-					$random = Functions::generateRandom(64);
-					$deviceID = Functions::generateHash($IDKey . $random);
-					echo '{"status": "201", "CIMIUsrID": "'.$CIMIUsrID.'", "deviceID": "'.$deviceID.'", "IDKey": "'.$IDKey.'"}';
-				}
-			}
-		}
-	});
-
-	//REGISTER NEW DEVICE
 	//Input: user credentials {usr, pwd} (json)
 	//Output: CIMIUsrID, deviceID and IDKey (json)
 	$app->post('/ResourceManagement/Identification/GetDeviceID', function (Request $request, Response $response, array $args)

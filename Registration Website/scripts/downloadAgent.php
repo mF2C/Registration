@@ -34,7 +34,8 @@
 					if($val == "       - 46060") //place env var after the expose tag for the identification module
 					{
 						print "    environment: \n";
-						print "      - CIMIUsrID=$user \n";
+						print '      - mF2C_User=$usr'."\n";
+						print '      - mF2C_Pass=$pwd'."\n";
 					}
 					if($val == "       - 46070") //place env var after the expose tag for the categorization module
 					{
