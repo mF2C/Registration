@@ -6,14 +6,13 @@ On the other hand, the identification is the set of techniques and procedures ai
 
 
 ## Relationship between registration and identification in mF2C
-All accounts created and activated will gain access to the dashboard. From there, users will be able to download the docker-compose file (a YAML file that defines multi-container apps). The docker-compose file will include an environment variable in the identification section: the user resource ID that [CIMI](https://github.com/mF2C/cimi) assigned individually to each account.
+All accounts created and activated will gain access to the dashboard. From there, users will be able to download the docker-compose file (a YAML file that defines multi-container apps). The docker-compose file includes two environment variables in the identification section: the mF2C username and password. these variables are used to read from the host computer the user credentials, thus, user should export them before executing the agent.
 
-Using the user resource ID, the identification module will acquire both, the IDKey (aka user identifier) and the deviceID the first time that the agent is executed in a new device. Both identifiers will be assigned by a support Webservice and will be made available for the other agent modules.
+Using the user credentials, the identification module will acquire both, the IDKey (aka user identifier) and the deviceID the first time that the agent is executed in a new device. Both identifiers will be assigned by a support Webservice and will be made available for the other agent modules.
 
 Figure 1 shows the sequence  diagram and the interactions between the identification module, the registration Webpage and the support Webservice.
 ![Sequence DIagram for the Registration and Identification Components](https://lh3.googleusercontent.com/oUHPofFS3tLpYjc_sZNz_-9Rr4R_atqklZEOHkgSL8SGm-AiNKtXCHl8nQgDLx2sMnwSxwMs-_VJuezpn_FGYfwoKK_naaq96KYLts_CeTPfm707EgyiECFDJNlPpzR_QuJSKLR5drbeESUldy0HpiCY6Q5dIzhEdW0VbZ8fub_LFg4e6ZoMT0o5lj1agilptta0fzOwps9Ec5Ouyo8nVWSK2_C8t-qOIJ2heoKQO-ZkyGdJLi5H8neIWdtJOzO1EjxGC0wGDTEm9B1fB2y4OoxQwu66pwabvbnN4ADeKY9DI2E7Z7-dzanLCaW-rDYlqoPka9bAR1sNWIBzmOoKJ7fP-fEe9SbKxLSNajmtCup6O0MbRlLedZ9JSrEszok0RDMoAg8TklahBTbldjzb3Yq1sHc1SKMrku5JDIQYGNRZruqyVu3j6EGzKWaX50f_oYlinFbLKgBDmBP0mN3FXlGAB8XIC5Jzbj02G1AhZwH8jDc4kM9RpX2xUM6kTj4nJH6ZnxaRHVaqPH9fXH0uSBmTwkpHIY0ZqAioFkqUoaobS6ejJOm6ni_jJUvczJaIEvpyAfHc6pnhXxN2oaLEUFpIQi6wJpMwPkgTZionbzHOCEJPMFwmpnNt9RZ03sVTXWEAIgLMYfyTR52WVJZ48QQcrF7VfJURLsHvbzEXgKOI7tRjUO1Dz-b4HxdozJBMsIFNUJFRFl86tv4vzK4huHLa=w942-h657-no)
 
-Alternatively, it is offered the posibility of obtaining both, the IDKey and the deviceID, using the user credentials in the Webservice instead of the user resource ID. This option is useful in scenarios where the docker-compose file has been obtained by an alternative means to the dashboard and therefore, the environment variable is not present in the file. In such scenario, steps 3 and 4 presented in the figure 1 are not necessary. 
 
 ## Project content
 The following links redirect to each of the three components previously described. More detailed information about the usage, inputs and outputs can be found in each of the links:
