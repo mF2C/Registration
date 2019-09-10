@@ -1,6 +1,6 @@
 ﻿# Support Webservice
 
-In mF2C, the support Webservice aims at providing an API that allows (i) to new devices to acquire both, the IDKey (also called user ID) and the deviceID and (ii) to validate whether a given IDKey is valid or not. Therefore, when a device executes the m2C agent for the first time, the local [Identification module](https://github.com/mF2C/Registration-Identification/tree/master/Identification%20Module), should contact the support Webservice and send either the user resource ID assigned by [CIMI](https://github.com/mF2C/cimi) or the dashboard user credentials. Once this information is validated, the support Webservice will respond with the user IDKey and a deviceID that is unique in the scope of the mF2C network.
+In mF2C, the support Webservice aims at providing an API that allows (i) to new devices to acquire both, the IDKey (also called user ID) and the deviceID and (ii) to validate whether a given IDKey is valid or not. Therefore, when a device executes the m2C agent for the first time, the local [Identification module](https://github.com/mF2C/Registration-Identification/tree/master/Identification%20Module), should contact the support Webservice and send the dashboard user credentials. Once this information is validated, the support Webservice will respond with the user IDKey and a deviceID that is unique in the scope of the mF2C network.
 
 This document describes the process to deploy and use the **mF2C Support Webservice**.
 
@@ -54,12 +54,11 @@ nano /var/www/cimi/endpoint.php
 ```
 
 ## Usage
-The support Webservice will expose three URIs:
+The support Webservice will expose two URIs:
 ### API
 - Endpoint `http://CloudAgent_Addr:Port/ResouceManagement/Identification/`
 - POST `/GetDeviceID`, DATA -> registers a new device using the dashboard user credentials and returns the CIMIUsrID, IDKey and deviceID formatted as json.
 - POST `/validateIDKey`, DATA -> validates whether an IDKey is authorized or not and  returns operation status and error/success message formatted as json. 
-- GET `/registerDevice/{CIMIUsrID}` -> registers a new device using the user resource ID assigned by CIMI and returns the CIMIUsrID, IDKey and deviceID formatted as json.
 ### Examples
 #### Registering a new device using the dashboard user credentials
 ##### Query
@@ -86,29 +85,6 @@ For error
 {
 	"status*":"412",
 	"message*":"Invalid user credentials"
-}
-*This may vary according with the error
-```
-#### Registering a new device using the CIMIUsrID
-##### Query
-```
-GET /registerDevice/{CIMIUsrID}
-```
-##### Output examples
-For success
-```
-{
-	"status":"201",
-	"CIMIUsrID":"CIMI_Resource_Identifier",
-	"IDKey":"User_IDKey",
-	"deviceID":"Device_Identifier"
-}
-```
-For error
-```
-{
-	"status*":"401",
-	"message*":"The provided user does not exist in the system"
 }
 *This may vary according with the error
 ```
