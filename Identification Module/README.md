@@ -22,21 +22,24 @@ export pwd=mf2c_password
 The identification module can be executed in coordination with the other agent modules (using the docker-compose file provided by the service provider) or, with the purpose of error debugging, in isolation. In both cases, the procedure is the same:
 ```
 cd /path/to/docker-compose.yml
-sudo docker-compose up
+docker-compose up
 ```
 To execute the module in isolation, the content of the docker-compose file must be:
 ```
 version: '3.1'
 services:
-	identification:
-		image: mf2c/identification:latest
-		container_name: identification
-		volumes:
-			- mydata:/data
-		ports:
-			- 46060:46060
+  identification:
+    image: mf2c/identification:latest
+    container_name: identification
+    volumes:
+     - mydata:/data
+    ports:
+     - 46060:46060
+    environment:
+      - mF2C_User=${usr} 
+      - mF2C_Pass=${pwd}
 volumes:
-	mydata: {}
+  mydata: {}
 ```
 
 ## Usage

@@ -127,8 +127,8 @@ public class RegisterDevice
         String[] credentials = new String[2];
         try
         {
-            credentials[0] = System.getenv("usr");
-            credentials[1] = System.getenv("pwd");
+            credentials[0] = System.getenv("mF2C_User");
+            credentials[1] = System.getenv("mF2C_Pass");
             if (credentials[0].equals("") || ((credentials[1].equals(""))))
                 credentials[0] = credentials[1] = "error";
         }
