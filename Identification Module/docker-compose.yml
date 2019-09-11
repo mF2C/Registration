@@ -7,5 +7,8 @@ services:
      - mydata:/data
     ports:
      - 46060:46060
+    environment:
+     # assign to the IDKey variable the correct value given the user email
+     # IDKey sould be unique for every user
 volumes:
   mydata: {}

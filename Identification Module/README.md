@@ -1,6 +1,6 @@
-﻿# Identification Module
+# Identification Module
 
-In mF2C, the identification module is the component in charge of acquiring the user and device unique identifiers (IDKey and deviceID) from the support Webservice (ws). The identification module will send either the user resource ID assigned by [CIMI](https://github.com/mF2C/cimi) or the user credentials and after a sucessful validation, it will get in return both, the IDKey and the deviceID. Both IDs will be stored locally for future use.
+In mF2C, the identification module is the component in charge of acquiring the user and device unique identifiers (IDKey and deviceID) from the support Webservice (ws). The identification module will send the dashboard user credentials and after a sucessful validation, it will get in return both, the IDKey and the deviceID. Both IDs will be stored locally for future use.
 
 This document describes the process to execute and use the **mF2C Identification module**.
 
@@ -10,11 +10,13 @@ The first requirement is to subscribe to the mF2C service with a service provide
 
 The **mF2C identification module** is a component of the mF2C agent and since it depends on other components (such as [CIMI](https://github.com/mF2C/cimi) and [DataClay](https://github.com/mF2C/dataClay)), it must be executed in the order and with the parameters predefined in the docker-compose file, thus, *the docker-compose file* is another prerequirement.
 
-In case the agent (docker-compose file) has been obtained by a different means than the dashboard ([the github repository](https://github.com/mF2C/mF2C/blob/master/docker-compose/docker-compose.yml), for example), the user credentials will be requested in order to obtain the identifiers (IDKey and deviceID).
-
 > **Note:** In order to be able to execute the identification module, *the [docker CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository) and [docker-compose](https://docs.docker.com/compose/install/)* must to be previously installed in the system.
 
-
+Finally, before executing the agent (or the identification module), it is necessary to create the *usr* and *pwd* environment variables. The *usr* variable should be assigned with the mF2C username and the *pwd* variable with the mF2C password value. These environment variables are created as follow:
+```
+export usr=mf2c_username
+export pwd=mf2c_password
+```
 
 ## Deployment
 The identification module can be executed in coordination with the other agent modules (using the docker-compose file provided by the service provider) or, with the purpose of error debugging, in isolation. In both cases, the procedure is the same:
@@ -74,7 +76,7 @@ For error
 #### Request the IDKey and / or deviceID
 ##### Query
 ```
-GET /registerDevice/
+GET /requestID/
 ```
 ##### Output examples
 For success

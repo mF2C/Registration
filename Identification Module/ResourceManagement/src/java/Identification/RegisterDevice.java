@@ -15,138 +15,72 @@ import org.json.JSONObject;
 @Path("registerDevice")
 public class RegisterDevice
 {
-    final String wsURL_CIMIUsrID = "http://dashboard.mf2c-project.eu:8000/ResourceManagement/Identification/RegisterDevice/";
     final String wsURL_Credentials = "http://dashboard.mf2c-project.eu:8000/ResourceManagement/Identification/GetDeviceID";
     final String file = "/data/IDs.f2c";
     
     @POST
     public String RegisterDevice(String input)
-    {   
-        try
+    {
+        boolean fileExists = validateFile();
+        if (fileExists)
+            return "{\"status\": \"412\", \"message\": \"File with the agent IDs already exists\"}";
+        else
         {
-            //Try to process the json input
-            //If something fails, it means that there is not json input
-            //convert input String to JSON
-            JSONObject obj = new JSONObject(input);
-            //Get the user and password values
-            String usr = obj.getString("usr").replaceAll("\\s+","");
-            String pwd = obj.getString("pwd").replaceAll("\\s+","");
-            boolean fileExists = validateFile();
-            if (fileExists)
-                return "{\"status\": \"412\", \"message\": \"File with the agent IDs already exists\"}";
+            String[] Credentials = getCredentials();
+            if (Credentials[0].equals("error")|| Credentials[1].equals("error"))
+                return "{\"status\": \"204\", \"message\": \"impossible to read user credentials from the environment variables\"}";
             else
             {
-                //Validate the obtained user and password
-                if ((usr.equals("")) || (pwd.equals("")))
-                    return "{\"status\": \"400\", \"message\": \"Invalid user credentials (empty field)\"}";
-                else
+                if (!validateCredentials(Credentials))
                 {
-                    if ((usr.length() < 8) || (pwd.length() < 8))
-                        return "{\"status\": \"400\", \"message\": \"Invalid user credentials (too short)\"}";
-                    else
-                    {
-                        try
-                        {
-                            String arg = "{\"usr\":\""+usr+"\",\"pwd\":\""+pwd+"\"}";
-                            Client client = ClientBuilder.newClient();
-                            WebTarget target = client.target(wsURL_Credentials);
-                            Response response = target.request().post(Entity.entity(arg, MediaType.APPLICATION_JSON));
-                            try
-                            {
-                                if (response.getStatus() != 200)
-                                    return "{\"status\": \"500\", \"message\": \"Failed with HTTP error code: "+response.getStatus()+"\"}";
-                                else
-                                {
-                                    JSONObject jsonObj = new JSONObject(response.readEntity(String.class));
-                                    String status = jsonObj.getString("status");
-                                    if (!status.equals("201"))
-                                    {
-                                        String message = jsonObj.getString("message");
-                                        return "{\"status\": \""+status+"\", \"message\": \"" + message + "\"}";
-                                    }
-                                    else
-                                    {
-                                        String CIMIUsrID = jsonObj.getString("CIMIUsrID");
-                                        String IDKey = jsonObj.getString("IDKey");
-                                        String deviceID = jsonObj.getString("deviceID");
-                                        boolean saved = saveFile(CIMIUsrID, IDKey, deviceID);
-                                        if (saved)
-                                            return "{\"status\": \"201\", \"message\": \"Agent IDs have been saved\"}";
-                                        else
-                                            return "{\"status\": \"500\", \"message\": \"Unable to save the file with the agent IDs\"}";
-                                    }
-
-                                }
-                            }
-                            finally
-                            {
-                                response.close();
-                                client.close();
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            //return "{\"status\": \"500\", \"message\": \"An unexpected error has occurred\"}";
-                            return "{\"status\": \"500\", \"message\": \"Error: "+e+"\"}";
-                        }
-                    }
+                    return "{\"status\": \"400\", \"message\": \"Invalid user credentials (too short)\"}";
                 }
-            }
-        }
-        catch(org.json.JSONException jsonException)
-        {
-            //execute this when the code fails to read the json input
-            //That means there is no input and therefore, the CIMIUsrID will be used to register the device
-            boolean fileExists = validateFile();
-            if (fileExists)
-                return "{\"status\": \"412\", \"message\": \"File with the agent IDs already exists\"}";
-            else
-            {
-                String CIMIUsrID = getCIMIUsrID();
-                if (CIMIUsrID.equals("error"))
-                    return "{\"status\": \"204\", \"message\": \"impossible to read env variable CIMIUsrID\"}";
                 else
                 {
-                    boolean CIMIUsrIDValid = validateCIMIUsrID(CIMIUsrID);
-                    if (!CIMIUsrIDValid)
-                        return "{\"status\": \"412\", \"message\": \"The CIMIUsrID does not meet the expected format\"}";
-                    else
+                    try
                     {
+                        String arg = "{\"usr\":\""+Credentials[0]+"\",\"pwd\":\""+Credentials[1]+"\"}";
+                        Client client = ClientBuilder.newClient();
+                        WebTarget target = client.target(wsURL_Credentials);
+                        Response response = target.request().post(Entity.entity(arg, MediaType.APPLICATION_JSON));
                         try
                         {
-                            Client client = ClientBuilder.newClient();
-                            WebTarget target = client.target(wsURL_CIMIUsrID + CIMIUsrID);
-                            String ans = target.request(MediaType.APPLICATION_JSON).get(String.class);
-                            JSONObject jsonObj = new JSONObject(ans);
-                            String status = jsonObj.getString("status");
-                            if (!status.equals("201"))
-                            {
-                                String message = jsonObj.getString("message");
-                                return "{\"status\": \""+status+"\", \"message\": \"" + message + "\"}";
-                            }
+                            if (response.getStatus() != 200)
+                                return "{\"status\": \"500\", \"message\": \"Failed with HTTP error code: "+response.getStatus()+"\"}";
                             else
                             {
-                                String IDKey = jsonObj.getString("IDKey");
-                                String deviceID = jsonObj.getString("deviceID");
-                                boolean saved = saveFile(CIMIUsrID, IDKey, deviceID);
-                                if (saved)
-                                    return "{\"status\": \"201\", \"message\": \"Agent IDs have been saved\"}";
+                                JSONObject jsonObj = new JSONObject(response.readEntity(String.class));
+                                String status = jsonObj.getString("status");
+                                if (!status.equals("201"))
+                                {
+                                    String message = jsonObj.getString("message");
+                                    return "{\"status\": \""+status+"\", \"message\": \"" + message + "\"}";
+                                }
                                 else
-                                    return "{\"status\": \"500\", \"message\": \"Unable to save the file with the agent IDs\"}";
+                                {
+                                    String CIMIUsrID = jsonObj.getString("CIMIUsrID");
+                                    String IDKey = jsonObj.getString("IDKey");
+                                    String deviceID = jsonObj.getString("deviceID");
+                                    boolean saved = saveFile(CIMIUsrID, IDKey, deviceID);
+                                    if (saved)
+                                        return "{\"status\": \"201\", \"message\": \"Agent IDs have been saved\"}";
+                                    else
+                                        return "{\"status\": \"500\", \"message\": \"Unable to save the file with the agent IDs\"}";
+                                }
                             }
                         }
-                        catch (Exception e)
+                        finally
                         {
-                            return "{\"status\": \"500\", \"message\": \"An unexpected error has occurred\"}";
+                            response.close();
+                            client.close();
                         }
+                    }
+                    catch (Exception e)
+                    {
+                        return "{\"status\": \"500\", \"message\": \"Error: "+e+"\"}";
                     }
                 }
             }
-        }
-        catch (Exception e)
-        {
-            //Other exceptions
-            return "{\"status\": \"400\", \"message\": \"Unknown exception. Please contact the system administrator\"}";
         }
     }
     
@@ -160,10 +94,10 @@ public class RegisterDevice
             return false;
     }
     
-    //Validates if the obtained CIMIUsrID meets the expected format 
-    private boolean validateCIMIUsrID(String CIMIUsrID)
+    //Validates if the obtained credentials meets the expected format 
+    private boolean validateCredentials(String[] Credentials)
     {
-        if (CIMIUsrID.length() <= 7)
+        if ((Credentials[0].length() <= 7) || (Credentials[1].length() <= 7))
             return false;
         else
             return true;
@@ -187,20 +121,21 @@ public class RegisterDevice
         }
     }
     
-    //Gets the CIMIUsrID from the system environment
-    private String getCIMIUsrID()
+    //Gets the user credentials from the system environment
+    private String[] getCredentials()
     {
-        String CIMIUsrID = "";
+        String[] credentials = new String[2];
         try
         {
-            CIMIUsrID = System.getenv("CIMIUsrID");
-            if (CIMIUsrID.equals(null))
-                CIMIUsrID = "error";
+            credentials[0] = System.getenv("usr");
+            credentials[1] = System.getenv("pwd");
+            if (credentials[0].equals("") || ((credentials[1].equals(""))))
+                credentials[0] = credentials[1] = "error";
         }
         catch (Exception e)
         {
-            CIMIUsrID = "error";
+            credentials[0] = credentials[1] = "error";
         }
-        return CIMIUsrID;
+        return credentials;
     }
 }
