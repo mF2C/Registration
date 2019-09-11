@@ -43,19 +43,13 @@ volumes:
 Once the module has been initialized, two URIs will be exposed:
 ### API
 - Endpoint `http://AGENT_ADDR:46060/api/v1/resource-management/identification/`
-- POST `/registerDevice`, DATA -> acquire the IDKey and deviceID from the support Webservice. Returns operation status and error/success message
+- POST `/registerDevice` -> acquire the IDKey and deviceID from the support Webservice. Returns operation status and error/success message
 - GET `/requestID` -> returns the CIMIUsrID, IDKey and deviceID formatted as json
 ### Examples
 #### Registering a new device
 ##### Query
 ```
 POST /registerDevice
-DATA*:
-	{
-		"usr": "user_username",
-		"pwd": "user_password"
-	}
-*Data is optional when the agent has been obtained through the dashboard
 ```
 ##### Output examples
 For success
