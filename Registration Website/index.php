@@ -25,10 +25,8 @@ if (isset($_SESSION['mF2C_user']) && isset($_SESSION['mF2C_pass']) && isset($_SE
 			<head>
 				<title>mF2C - Driving Through the Edge</title>
 				<script src="scripts/functions.js"></script>
-				<script src="scripts/services/js/service_register.js"></script>
-				<script src="scripts/services/js/service_catalog.js"></script>
 				<script type="text/javascript" src="scripts/jquery.js"></script>
-					<link href="styles/sans.css" rel="stylesheet" type="text/css" />
+				<link href="styles/sans.css" rel="stylesheet" type="text/css" />
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link href="styles/registration.css" rel="stylesheet" type="text/css" media="all"/>
@@ -45,9 +43,8 @@ if (isset($_SESSION['mF2C_user']) && isset($_SESSION['mF2C_pass']) && isset($_SE
 						<h2>Towards an Open, Secure, Decentralized and Coordinated Fog-to-Cloud Management Ecosystem</h2>
 					</div>
 					<div class="body">
-						<table width="100%" border="0" cellpadding="0" cellspacing="0">
+						<table width="60%" border="0" cellpadding="0" cellspacing="0">
 							<tr>
-								<td><a class="link" id="formAgent" onClick="showForm(1)"><img src="images/cloud.png" alt="Cloud"><br><h9>Cloud<br>Agent</h9></a></td>
 								<td><a class="link" id="formAgent" onClick="showForm(2)"><img src="images/fog.png" alt="Fog"><br><h9>Fog<br>Agent</h9></a></td>
 								<td><a class="link" id="formAgent" onClick="showForm(3)"><img src="images/iot.png" alt="IoT"><br><h9>Micro<br>Agent</h9></a></td>
 							</tr>
@@ -117,14 +114,16 @@ if (isset($_SESSION['mF2C_user']) && isset($_SESSION['mF2C_pass']) && isset($_SE
 										<td width="10%"></td>
 										<td width="90%"><input type="checkbox" name="sensor[]" id="checkedB[]" value="I"> Inclinometer</td>
 									</tr>
+									<tr align="left">
+										<td width="10%"></td>
+										<td width="90%"><input type="checkbox" name="sensor[]" id="checkedB[]" value="C"> Camera</td>
+									</tr>
 								</table>
 								<br><a class="register" onClick="downloadBtn()">Download<span class="arrow"> </span></a>
 						  	</div>
 						</div>
 						<hr>
-						<a class="link" onClick="serviceRegistration()"><br><h4>Register new service</h4></a>
-						<hr>
-						<a class="link" onClick="serviceCatalog()"><br><h4>Service Catalog</h4></a>
+						<h7>Need some help to install the agent? Check the<a class="link" href="https://github.com/mF2C/mF2C/blob/master/agent/docs/agent.md" target="_blank" style="color: yellow!important;"><br><< how to >></a> section</h7>
 						<hr>
 						<a class="link" onClick="logout()" style="color: green !important;"><br><h9>Logout</h9></a>
 						<hr>

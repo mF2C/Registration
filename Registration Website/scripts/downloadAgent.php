@@ -22,7 +22,11 @@
 				$actuator = $_GET['actuator'];
 				$sensor = $_GET['sensor'];
 				$agent = $_GET['agent'];
-				$file = "https://raw.githubusercontent.com/mF2C/mF2C/master/docker-compose/docker-compose.yml";
+				$file = "";
+				if ($agent == 3)
+					$file = "https://raw.githubusercontent.com/mF2C/mF2C/master/microagent/docker-compose.yml";
+				else
+					$file = "https://raw.githubusercontent.com/mF2C/mF2C/master/agent/docker-compose.yml";
 				header("Content-type: text/script");
 				header("Content-Disposition: attachment; filename=mf2c-deployment.sh");
 				$docker_compose_file = file_get_contents($file);
